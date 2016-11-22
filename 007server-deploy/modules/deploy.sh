@@ -35,9 +35,15 @@ echo "******************************"
 echo "***************copy target to ROOT"
 echo "******************************"
 
+
 rm -rf $tomcat/webapps/*
 mkdir -p $tomcat/webapps/ROOT/
 cp -rf $targetfile/* $tomcat/webapps/ROOT/
+
+
+#mark deploy time
+deploy_info_file=$tomcat/webapps/ROOT/deploy_info
+{ echo "##svnInfo:";svn info $source;echo "";echo "##deployTime:";echo "$(date '+%Y-%m-%d %H:%M:%S')"; } > $deploy_info_file
 
 #start tomcat
 echo ""
